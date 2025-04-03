@@ -210,15 +210,15 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Menu Overlay */}
-            <div className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+            <div className={`fixed inset-0 bg-gradient-to-br from-indigo-900/90 to-purple-900/90 backdrop-blur-md transition-opacity duration-300 md:hidden ${
                 isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`} onClick={() => setIsMenuOpen(false)} />
 
             {/* Mobile Menu Sidebar */}
-            <div className={`fixed inset-y-0 left-0 w-72 bg-gradient-to-b from-indigo-600 to-purple-600 shadow-xl transform transition-transform duration-300 ease-in-out md:hidden ${
+            <div className={`fixed inset-y-0 left-0 w-72 bg-gradient-to-b from-indigo-600 to-purple-600 shadow-2xl transform transition-transform duration-300 ease-in-out md:hidden ${
                 isMenuOpen ? 'translate-x-0' : '-translate-x-full'
             }`}>
-                <div className="flex flex-col h-full bg-indigo-600">
+                <div className="flex flex-col h-full">
                     {/* Mobile Menu Header */}
                     <div className="flex items-center justify-between p-4 border-b border-white/10">
                         <Link to="/" className="flex items-center">
@@ -235,158 +235,145 @@ const Navbar = () => {
                     </div>
 
                     {/* Mobile Menu Content */}
-                    <div className="flex-1 overflow-y-auto p-4 bg-white">
+                    <div className="flex-1 overflow-y-auto p-4">
                         <ul className='space-y-2'>
-                        {user && user.role === 'recruiter' ? (
-                            <>
-                                <li>
+                            {user && user.role === 'recruiter' ? (
+                                <>
+                                    <li>
                                         <Link 
                                             to="/admin/companies" 
-                                            className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
+                                            className={`flex items-center justify-between p-3 rounded-lg transition-all duration-200 ${
                                                 isActiveLink('/admin/companies') 
-                                                    ? 'bg-white/10 text-white' 
-                                                    : 'hover:bg-white/5 text-gray-200 hover:text-white'
+                                                    ? 'bg-white/20 text-white font-semibold' 
+                                                    : 'text-gray-200 hover:bg-white/10 hover:text-white'
                                             }`}
                                             onClick={() => setIsMenuOpen(false)}
                                         >
                                             <span>Companies</span>
                                             <ChevronRight className="h-4 w-4" />
-                                    </Link>
-                                </li>
-                                <li>
+                                        </Link>
+                                    </li>
+                                    <li>
                                         <Link 
                                             to="/admin/jobs" 
-                                            className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
+                                            className={`flex items-center justify-between p-3 rounded-lg transition-all duration-200 ${
                                                 isActiveLink('/admin/jobs') 
-                                                    ? 'bg-white/10 text-white' 
-                                                    : 'hover:bg-white/5 text-gray-200 hover:text-white'
+                                                    ? 'bg-white/20 text-white font-semibold' 
+                                                    : 'text-gray-200 hover:bg-white/10 hover:text-white'
                                             }`}
                                             onClick={() => setIsMenuOpen(false)}
                                         >
                                             <span>Jobs</span>
                                             <ChevronRight className="h-4 w-4" />
-                                    </Link>
-                                </li>
-                            </>
-                        ) : (
-                            <>
-                                <li>
+                                        </Link>
+                                    </li>
+                                </>
+                            ) : (
+                                <>
+                                    <li>
                                         <Link 
                                             to="/" 
-                                            className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
+                                            className={`flex items-center justify-between p-3 rounded-lg transition-all duration-200 ${
                                                 isActiveLink('/') 
-                                                    ? 'bg-white/10 text-white' 
-                                                    : 'hover:bg-white/5 text-gray-200 hover:text-white'
+                                                    ? 'bg-white/20 text-white font-semibold' 
+                                                    : 'text-gray-200 hover:bg-white/10 hover:text-white'
                                             }`}
                                             onClick={() => setIsMenuOpen(false)}
                                         >
                                             <span>Home</span>
                                             <ChevronRight className="h-4 w-4" />
-                                    </Link>
-                                </li>
-                                <li>
+                                        </Link>
+                                    </li>
+                                    <li>
                                         <Link 
                                             to="/jobs" 
-                                            className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
+                                            className={`flex items-center justify-between p-3 rounded-lg transition-all duration-200 ${
                                                 isActiveLink('/jobs') 
-                                                    ? 'bg-white/10 text-white' 
-                                                    : 'hover:bg-white/5 text-gray-200 hover:text-white'
+                                                    ? 'bg-white/20 text-white font-semibold' 
+                                                    : 'text-gray-200 hover:bg-white/10 hover:text-white'
                                             }`}
                                             onClick={() => setIsMenuOpen(false)}
                                         >
                                             <span>Jobs</span>
                                             <ChevronRight className="h-4 w-4" />
-                                    </Link>
-                                </li>
-                                <li>
+                                        </Link>
+                                    </li>
+                                    <li>
                                         <Link 
                                             to="/browse" 
-                                            className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
+                                            className={`flex items-center justify-between p-3 rounded-lg transition-all duration-200 ${
                                                 isActiveLink('/browse') 
-                                                    ? 'bg-white/10 text-white' 
-                                                    : 'hover:bg-white/5 text-gray-200 hover:text-white'
+                                                    ? 'bg-white/20 text-white font-semibold' 
+                                                    : 'text-gray-200 hover:bg-white/10 hover:text-white'
                                             }`}
                                             onClick={() => setIsMenuOpen(false)}
                                         >
                                             <span>Browse</span>
                                             <ChevronRight className="h-4 w-4" />
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link 
-                                        to="/about" 
-                                        className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
-                                            isActiveLink('/about') 
-                                                ? 'text-white font-semibold' 
-                                                : 'text-gray-200 hover:text-white'
-                                        }`}
-                                        onClick={() => setIsMenuOpen(false)}
-                                    >
-                                        <span>About Us</span>
-                                        <ChevronRight className="h-4 w-4" />
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="/signup"
-                                        className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
-                                            isActiveLink('/signup') 
-                                                ? 'text-white font-semibold' 
-                                                : 'text-gray-200 hover:text-white'
-                                        }`}
-                                        onClick={() => setIsMenuOpen(false)}
-                                    >
-                                        <span>Sign Up</span>
-                                        <ChevronRight className="h-4 w-4" />
-                                    </Link>
-                                </li>
-                            </>
-                        )}
-                    </ul>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link 
+                                            to="/about" 
+                                            className={`flex items-center justify-between p-3 rounded-lg transition-all duration-200 ${
+                                                isActiveLink('/about') 
+                                                    ? 'bg-white/20 text-white font-semibold' 
+                                                    : 'text-gray-200 hover:bg-white/10 hover:text-white'
+                                            }`}
+                                            onClick={() => setIsMenuOpen(false)}
+                                        >
+                                            <span>About Us</span>
+                                            <ChevronRight className="h-4 w-4" />
+                                        </Link>
+                                    </li>
+                                </>
+                            )}
+                        </ul>
                     </div>
 
                     {/* Mobile Menu Footer */}
-                    <div className="p-4 border-t bg-white">
-                    {!user ? (
+                    <div className="p-4 border-t border-white/10">
+                        {!user ? (
                             <div className='flex flex-col gap-3'>
                                 <Link to="/login">
-                                    <Button variant="outline" className="w-full bg-transparent border-white text-white hover:bg-white/10 hover:text-white">
+                                    <Button 
+                                        variant="outline" 
+                                        className="w-full bg-gradient-to-r from-indigo-500 to-purple-500  text-white hover:from-indigo-500/30 hover:to-purple-500/30 hover:border-white/30 transition-all duration-200"
+                                    >
                                         Login
                                     </Button>
                                 </Link>
                                 <Link to="/signup">
-                                    <Button className="w-full bg-white text-indigo-600 hover:bg-indigo-50">
+                                    <Button 
+                                        className="w-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:from-indigo-600 hover:to-purple-600 transition-all duration-200"
+                                    >
                                         Signup
                                     </Button>
                                 </Link>
-                        </div>
-                    ) : (
-                            <div className='space-y-2 '>
+                            </div>
+                        ) : (
+                            <div className='space-y-2'>
                                 {user?.role === 'student' && (
                                     <Link to="/profile">
                                         <Button 
                                             variant="outline" 
-                                            className="w-full justify-start gap-3 bg-blue-600 border-white text-white hover:bg-white/10 hover:text-white group relative overflow-hidden"
+                                            className="w-full justify-start gap-3 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 border-white/20 text-white hover:from-indigo-500/30 hover:to-purple-500/30 hover:border-white/30 transition-all duration-200"
                                         >
-                                            <div className="absolute inset-0 bg-gradient-to-r from-white/0 to-white/0 group-hover:from-white/10 group-hover:to-white/10 transition-all duration-300"></div>
-                                            <User2 className="h-5 w-5 transition-transform group-hover:scale-110 relative z-10" />
-                                            <span className="relative z-10 font-medium">View Profile</span>
-                                            <ChevronRight className="h-4 w-4 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1 relative z-10" />
+                                            <User2 className="h-5 w-5" />
+                                            <span>View Profile</span>
                                         </Button>
                                     </Link>
                                 )}
                                 <Button 
                                     onClick={logoutHandler} 
                                     variant="outline" 
-                                    className="w-full justify-start gap-3 bg-transparent border-white text-white hover:bg-white/10 hover:text-white group relative overflow-hidden"
+                                    className="w-full justify-start gap-3 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 border-white/20 text-white hover:from-indigo-500/30 hover:to-purple-500/30 hover:border-white/30 transition-all duration-200"
                                 >
-                                    <div className="absolute inset-0 bg-blue-600 from-white/0 to-white/0 group-hover:from-white/10 group-hover:to-white/10 transition-all duration-300"></div>
-                                    <LogOut className="h-5 w-5 transition-transform group-hover:scale-110 relative z-10" />
-                                    <span className="relative z-10 font-medium">Logout</span>
-                                    <ChevronRight className="h-4 w-4 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1 relative z-10" />
+                                    <LogOut className="h-5 w-5" />
+                                    <span>Logout</span>
                                 </Button>
-                        </div>
-                    )}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
