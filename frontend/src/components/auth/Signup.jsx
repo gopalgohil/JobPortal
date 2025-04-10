@@ -32,6 +32,7 @@ const Signup = () => {
         if (!/^[A-Za-z][A-Za-z ]*$/.test(input.fullname)) {
             tempErrors.fullname = "Full name must start with a letter";
         }
+        
         if (!/^[0-9]{10}$/.test(input.phoneNumber)) {
             tempErrors.phoneNumber = "Phone number must be exactly 10 digits";
         }
@@ -298,6 +299,7 @@ const Signup = () => {
                     </div>
                 </motion.div>
             </div>
+            <Navbar />
         </div>
     );
 };

@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 import Navbar from './shared/Navbar';
 import { motion } from 'framer-motion';
 import { Briefcase, MapPin, Clock, DollarSign, Users, Calendar, Star } from 'lucide-react';
+import Footer from './shared/Footer';
 
 const JobDescription = () => {
     const { singleJob } = useSelector(store => store.job);
@@ -109,17 +110,17 @@ const JobDescription = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                     >
-                        <Button
-                            onClick={isApplied ? null : applyJobHandler}
-                            disabled={isApplied}
+                    <Button
+                        onClick={isApplied ? null : applyJobHandler}
+                        disabled={isApplied}
                             className={`rounded-xl px-8 py-6 text-white font-semibold transition-all duration-300 ${
                                 isApplied 
                                     ? 'bg-gray-400 cursor-not-allowed' 
                                     : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg'
                             }`}
                         >
-                            {isApplied ? 'Already Applied' : 'Apply Now'}
-                        </Button>
+                        {isApplied ? 'Already Applied' : 'Apply Now'}
+                    </Button>
                     </motion.div>
                 </div>
 
@@ -163,7 +164,7 @@ const JobDescription = () => {
                         <Clock className="h-5 w-5 text-indigo-600" />
                         <div>
                             <h1 className='font-semibold text-gray-900'>Experience</h1>
-                            <span className='text-gray-600'>{singleJob?.experience} yrs</span>
+                            <span className='text-gray-600'>{singleJob?.experience}1 yrs</span>
                         </div>
                     </div>
                     <div className='flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200'>
@@ -189,6 +190,7 @@ const JobDescription = () => {
                     </div>
                 </motion.div>
             </motion.div>
+            <Footer />
         </div>
     );
 }

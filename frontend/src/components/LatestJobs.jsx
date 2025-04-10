@@ -1,6 +1,6 @@
 import React from 'react'
 import LatestJobCards from './LatestJobCards';
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'; 
 import { motion } from 'framer-motion';
 import { Briefcase } from 'lucide-react';
 
@@ -49,7 +49,7 @@ const LatestJobs = () => {
                                 We're currently updating our job listings. 
                                 Please check back later for new opportunities.
                             </p>
-                        </div>
+            </div>
                     </motion.div>
                 ) : (
                     allJobs?.slice(0,6).map((job, index) => (

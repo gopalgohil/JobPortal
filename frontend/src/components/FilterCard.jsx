@@ -4,7 +4,9 @@ import { Label } from './ui/label'
 import { useDispatch } from 'react-redux'
 import { setSearchedQuery } from '@/redux/jobSlice'
 import { motion } from 'framer-motion'
-import { MapPin, Briefcase, DollarSign, ChevronDown, ChevronUp } from 'lucide-react'
+import { MapPin, Briefcase, DollarSign, ChevronDown, ChevronUp, Search, X } from 'lucide-react'
+import { Input } from './ui/input'
+import { Button } from './ui/button'
 
 const filterData = [
     {
@@ -27,6 +29,7 @@ const filterData = [
 const FilterCard = () => {
     const [selectedValue, setSelectedValue] = useState('');
     const [expandedSections, setExpandedSections] = useState({});
+    const [searchQuery, setSearchQuery] = useState('');
     const dispatch = useDispatch();
 
     const toggleSection = (filterType) => {
@@ -40,9 +43,19 @@ const FilterCard = () => {
         setSelectedValue(value);
     }
 
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value);
+    }
+
+    const clearSearch = () => {
+        setSearchQuery('');
+    }
+
     useEffect(() => {
-        dispatch(setSearchedQuery(selectedValue));
-    }, [selectedValue]);
+        // Combine search query and selected filter value
+        const combinedQuery = searchQuery ? `${searchQuery} ${selectedValue}` : selectedValue;
+        dispatch(setSearchedQuery(combinedQuery.trim()));
+    }, [selectedValue, searchQuery, dispatch]);
 
     return (
         <motion.div 
@@ -52,6 +65,29 @@ const FilterCard = () => {
             className='w-full bg-white p-6 rounded-xl shadow-lg border border-gray-100 mt-6'
         >
             <h1 className='font-bold text-2xl text-gray-900 mb-6'>Filter Jobs</h1>
+            
+            {/* Search Input */}
+            <div className="relative mb-6">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input
+                    type="text"
+                    placeholder="Search jobs..."
+                    value={searchQuery}
+                    onChange={handleSearch}
+                    className="pl-10 pr-10"
+                />
+                {searchQuery && (
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8"
+                        onClick={clearSearch}
+                    >
+                        <X className="h-4 w-4 text-gray-400" />
+                    </Button>
+                )}
+            </div>
+
             <div className='space-y-6'>
                 <RadioGroup 
                     value={selectedValue} 
@@ -62,7 +98,7 @@ const FilterCard = () => {
                         const Icon = data.icon;
                         const isExpanded = expandedSections[data.filterType] ?? true;
                         
-                                    return (
+                        return (
                             <motion.div 
                                 key={data.filterType}
                                 initial={{ opacity: 0, y: 10 }}
@@ -79,7 +115,7 @@ const FilterCard = () => {
                                         <h2 className='font-semibold text-lg text-gray-900 group-hover:text-indigo-600 transition-colors'>
                                             {data.filterType}
                                         </h2>
-                                        </div>
+                                    </div>
                                     {isExpanded ? 
                                         <ChevronUp className="h-5 w-5 text-gray-400 group-hover:text-indigo-600 transition-colors" /> : 
                                         <ChevronDown className="h-5 w-5 text-gray-400 group-hover:text-indigo-600 transition-colors" />
@@ -118,24 +154,27 @@ const FilterCard = () => {
                                                 </motion.div>
                                             );
                                         })}
-                        </div>
+                                    </div>
                                 </motion.div>
                             </motion.div>
                         );
                     })}
-            </RadioGroup>
-        </div>
+                </RadioGroup>
+            </div>
 
             {/* Reset Button */}
-            {selectedValue && (
+            {(selectedValue || searchQuery) && (
                 <motion.button
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    onClick={() => setSelectedValue('')}
+                    onClick={() => {
+                        setSelectedValue('');
+                        setSearchQuery('');
+                    }}
                     className="mt-6 w-full py-2 px-4 text-sm font-medium text-indigo-600 bg-indigo-50 
                              rounded-lg hover:bg-indigo-100 transition-colors duration-200"
                 >
-                    Reset Filters
+                    Reset All Filters
                 </motion.button>
             )}
         </motion.div>
