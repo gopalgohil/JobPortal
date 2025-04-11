@@ -194,113 +194,137 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Menu */}
-            <div className={`fixed inset-0 bg-white transition-opacity duration-300 md:hidden ${
-                isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            <div className={`fixed top-0 left-0 w-full h-full bg-indigo-600 transition-all duration-300 md:hidden z-[60] ${
+                isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'
             }`}>
                 <div className="flex flex-col h-full">
                     {/* Mobile Menu Header */}
-                    <div className="flex items-center justify-between p-4 border-b">
+                    <div className="flex items-center justify-between p-4 bg-indigo-600">
                         <Link to="/" className="flex items-center">
-                            <h1 className='text-2xl font-bold text-indigo-600'>
-                                Job<span className='text-indigo-400'>Portal</span>
+                            <h1 className='text-2xl font-bold text-white'>
+                                Job<span className='text-indigo-300'>Portal</span>
                             </h1>
                         </Link>
                         <button 
                             onClick={() => setIsMenuOpen(false)}
-                            className="p-2 rounded-lg hover:bg-gray-100 transition-colors text-gray-600"
+                            className="p-2 rounded-lg hover:bg-indigo-700 transition-all duration-300 text-white"
                         >
                             <X className="h-6 w-6" />
                         </button>
                     </div>
 
                     {/* Mobile Menu Content */}
-                    <div className="flex-1 overflow-y-auto p-4">
-                        <ul className='space-y-2'>
-                            <li>
-                                <Link 
-                                    to="/" 
-                                    className={`flex items-center p-3 rounded-lg transition-all duration-200 ${
-                                        isActiveLink('/') 
-                                            ? 'bg-indigo-50 text-indigo-600 font-semibold' 
-                                            : 'text-gray-600 hover:bg-gray-100'
-                                    }`}
-                                    onClick={() => setIsMenuOpen(false)}
-                                >
-                                    Home
-                                </Link>
-                            </li>
-                            <li>
-                                <Link 
-                                    to="/jobs" 
-                                    className={`flex items-center p-3 rounded-lg transition-all duration-200 ${
-                                        isActiveLink('/jobs') 
-                                            ? 'bg-indigo-50 text-indigo-600 font-semibold' 
-                                            : 'text-gray-600 hover:bg-gray-100'
-                                    }`}
-                                    onClick={() => setIsMenuOpen(false)}
-                                >
-                                    Jobs
-                                </Link>
-                            </li>
-                            <li>
-                                <Link 
-                                    to="/browse" 
-                                    className={`flex items-center p-3 rounded-lg transition-all duration-200 ${
-                                        isActiveLink('/browse') 
-                                            ? 'bg-indigo-50 text-indigo-600 font-semibold' 
-                                            : 'text-gray-600 hover:bg-gray-100'
-                                    }`}
-                                    onClick={() => setIsMenuOpen(false)}
-                                >
-                                    Browse
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
+                    <div className="flex-1 flex flex-col justify-between p-4 bg-white">
+                        <div className="space-y-4">
+                            {user && (
+                                <div className='flex flex-col items-center gap-4 p-4 bg-indigo-600 rounded-xl'>
+                                    <div className="flex flex-col items-center gap-3">
+                                        <Avatar className="h-20 w-20 ring-4 ring-indigo-700 rounded-full">
+                                            <AvatarImage 
+                                                src={user?.profile?.profilePhoto} 
+                                                alt="User Avatar"
+                                                className="rounded-full object-cover"
+                                            />
+                                        </Avatar>
+                                        <div className="text-center">
+                                            <h4 className='font-semibold text-white text-xl'>{user?.fullname}</h4>
+                                            <p className='text-sm text-indigo-300 mt-1'>{user?.profile?.bio || 'User'}</p>
+                                            <div className='flex items-center justify-center gap-2 mt-2'>
+                                                <span className='px-3 py-1 text-xs font-medium bg-indigo-700 text-white rounded-full'>
+                                                    {user?.role === 'student' ? 'Student' : 'Recruiter'}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            <ul className='space-y-4 flex flex-col items-center'>
+                                <li className="w-full">
+                                    <Link 
+                                        to="/" 
+                                        className={`flex items-center justify-center p-4 rounded-xl transition-all duration-300 ${
+                                            isActiveLink('/') 
+                                                ? 'bg-indigo-600 text-white font-semibold shadow-lg shadow-indigo-500/20' 
+                                                : 'bg-indigo-100 text-indigo-600 hover:bg-indigo-200'
+                                        }`}
+                                        onClick={() => setIsMenuOpen(false)}
+                                    >
+                                        Home
+                                    </Link>
+                                </li>
+                                <li className="w-full">
+                                    <Link 
+                                        to="/jobs" 
+                                        className={`flex items-center justify-center p-4 rounded-xl transition-all duration-300 ${
+                                            isActiveLink('/jobs') 
+                                                ? 'bg-indigo-600 text-white font-semibold shadow-lg shadow-indigo-500/20' 
+                                                : 'bg-indigo-100 text-indigo-600 hover:bg-indigo-200'
+                                        }`}
+                                        onClick={() => setIsMenuOpen(false)}
+                                    >
+                                        Jobs
+                                    </Link>
+                                </li>
+                                <li className="w-full">
+                                    <Link 
+                                        to="/browse" 
+                                        className={`flex items-center justify-center p-4 rounded-xl transition-all duration-300 ${
+                                            isActiveLink('/browse') 
+                                                ? 'bg-indigo-600 text-white font-semibold shadow-lg shadow-indigo-500/20' 
+                                                : 'bg-indigo-100 text-indigo-600 hover:bg-indigo-200'
+                                        }`}
+                                        onClick={() => setIsMenuOpen(false)}
+                                    >
+                                        Browse
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
 
-                    {/* Mobile Menu Footer */}
-                    <div className="p-4 border-t">
-                        {!user ? (
-                            <div className='flex flex-col gap-3'>
-                                <Link to="/login">
-                                    <Button 
-                                        variant="outline" 
-                                        className="w-full border-indigo-600 text-indigo-600 hover:bg-indigo-50"
-                                    >
-                                        Login
-                                    </Button>
-                                </Link>
-                                <Link to="/signup">
-                                    <Button 
-                                        className="w-full bg-indigo-600 text-white hover:bg-indigo-700"
-                                    >
-                                        Signup
-                                    </Button>
-                                </Link>
-                            </div>
-                        ) : (
-                            <div className='space-y-2'>
-                                {user?.role === 'student' && (
-                                    <Link to="/profile">
+                        {/* Mobile Menu Footer */}
+                        <div className="space-y-4">
+                            {!user ? (
+                                <div className='flex flex-col gap-4 items-center'>
+                                    <Link to="/login" className="w-full">
                                         <Button 
                                             variant="outline" 
-                                            className="w-full justify-start gap-3 border-indigo-600 text-indigo-600 hover:bg-indigo-50"
+                                            className="w-full h-12 border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all duration-300"
                                         >
-                                            <User2 className="h-5 w-5" />
-                                            <span>View Profile</span>
+                                            Login
                                         </Button>
                                     </Link>
-                                )}
-                                <Button 
-                                    onClick={logoutHandler} 
-                                    variant="outline" 
-                                    className="w-full justify-start gap-3 text-red-600 border-red-600 hover:bg-red-50"
-                                >
-                                    <LogOut className="h-5 w-5" />
-                                    <span>Logout</span>
-                                </Button>
-                            </div>
-                        )}
+                                    <Link to="/signup" className="w-full">
+                                        <Button 
+                                            className="w-full h-12 bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg shadow-indigo-500/20 transition-all duration-300"
+                                        >
+                                            Signup
+                                        </Button>
+                                    </Link>
+                                </div>
+                            ) : (
+                                <div className='space-y-4 flex flex-col items-center'>
+                                    {user?.role === 'student' && (
+                                        <Link to="/profile" className="w-full">
+                                            <Button 
+                                                variant="outline" 
+                                                className="w-full h-12 justify-center gap-3 border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all duration-300"
+                                            >
+                                                <User2 className="h-5 w-5" />
+                                                <span>View Profile</span>
+                                            </Button>
+                                        </Link>
+                                    )}
+                                    <Button 
+                                        onClick={logoutHandler} 
+                                        variant="outline" 
+                                        className="w-full h-12 justify-center gap-3 text-red-600 border-red-600 hover:bg-red-600 hover:text-white transition-all duration-300"
+                                    >
+                                        <LogOut className="h-5 w-5" />
+                                        <span>Logout</span>
+                                    </Button>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

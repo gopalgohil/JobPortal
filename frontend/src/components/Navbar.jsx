@@ -90,38 +90,21 @@ const Navbar = () => {
                 {/* Desktop Navigation */}
                 <div className='hidden md:flex items-center justify-center flex-1'>
                     <ul className='flex font-medium items-center gap-8'>
-                        {user && user.role === 'recruiter' ? (
-                            <>
-                                <li>
-                                    <Link to="/admin/companies" className={`transition-colors duration-200 ${isActiveLink('/admin/companies')}`}>
-                                        Companies
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/admin/jobs" className={`transition-colors duration-200 ${isActiveLink('/admin/jobs')}`}>
-                                        Jobs
-                                    </Link>
-                                </li>
-                            </>
-                        ) : (
-                            <>
-                                <li>
-                                    <Link to="/" className={`transition-colors duration-200 ${isActiveLink('/')}`}>
-                                        Home
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/jobs" className={`transition-colors duration-200 ${isActiveLink('/jobs')}`}>
-                                        Jobs
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/browse" className={`transition-colors duration-200 ${isActiveLink('/browse')}`}>
-                                        Browse
-                                    </Link>
-                                </li>
-                            </>
-                        )}
+                        <li>
+                            <Link to="/" className={`transition-colors duration-200 ${isActiveLink('/')}`}>
+                                Home
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/jobs" className={`transition-colors duration-200 ${isActiveLink('/jobs')}`}>
+                                Jobs
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/browse" className={`transition-colors duration-200 ${isActiveLink('/browse')}`}>
+                                Browse
+                            </Link>
+                        </li>
                     </ul>
                 </div>
 
@@ -143,10 +126,10 @@ const Navbar = () => {
                     ) : (
                         <Popover>
                             <PopoverTrigger asChild>
-                                <div className="flex items-center gap-2 cursor-pointer group ">
-                                    <Avatar className="ring-2 ring-white/20  group-hover:ring-white/40 transition-all duration-300">
-                                    <AvatarImage src={user?.profile?.profilePhoto} alt="User Avatar" className=""/>
-                                </Avatar>
+                                <div className="flex items-center gap-2 cursor-pointer group">
+                                    <Avatar className="ring-2 ring-white/20 group-hover:ring-white/40 transition-all duration-300">
+                                        <AvatarImage src={user?.profile?.profilePhoto} alt="User Avatar" />
+                                    </Avatar>
                                     <div className="hidden md:block text-left">
                                         <p className="text-white font-medium group-hover:text-white/90 transition-colors">
                                             {user?.fullname}
@@ -209,11 +192,11 @@ const Navbar = () => {
                 isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`} onClick={() => setIsMenuOpen(false)} />
 
-            {/* Mobile Menu Sidebar */}
+            {/* Mobile Menu */}
             <div className={`fixed inset-y-0 left-0 w-72 bg-gradient-to-b from-indigo-600 to-purple-600 shadow-xl transform transition-transform duration-300 ease-in-out md:hidden ${
                 isMenuOpen ? 'translate-x-0' : '-translate-x-full'
             }`}>
-                <div className="flex flex-col h-full bg-indigo-600">
+                <div className="flex flex-col h-full">
                     {/* Mobile Menu Header */}
                     <div className="flex items-center justify-between p-4 border-b border-white/10">
                         <Link to="/" className="flex items-center">
@@ -230,145 +213,96 @@ const Navbar = () => {
                     </div>
 
                     {/* Mobile Menu Content */}
-                    <div className="flex-1 overflow-y-auto p-4">
+                    <div className="flex-1 flex flex-col items-center justify-center py-8">
                         {user && (
-                            <div className="flex items-center gap-3 p-4 mb-4 bg-white/5 rounded-lg">
-                                <Avatar className="h-12 w-12 ring-2 ring-white/20 overflow-hidden">
-                                    <AvatarImage 
-                                        src={user?.profile?.profilePhoto} 
-                                        alt="User Avatar" 
-                                        className="object-cover"
-                                    />
+                            <div className="flex flex-col items-center mb-8">
+                                <Avatar className="h-20 w-20 ring-4 ring-white/20 mb-4">
+                                    <AvatarImage src={user?.profile?.profilePhoto} alt="User Avatar" />
                                 </Avatar>
-                                <div>
-                                    <p className="text-white font-medium">{user?.fullname}</p>
-                                    <p className="text-xs text-white/70">{user?.role === 'student' ? 'Student' : 'Recruiter'}</p>
-                                </div>
+                                <h3 className="text-xl font-semibold text-white mb-1">{user?.fullname}</h3>
+                                <p className="text-indigo-200 mb-4">{user?.role === 'student' ? 'Student' : 'Recruiter'}</p>
+                                <Link 
+                                    to="/profile"
+                                    className="flex items-center gap-2 px-6 py-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    <User2 className="h-5 w-5" />
+                                    View Profile
+                                </Link>
                             </div>
                         )}
-                        <ul className='space-y-2'>
-                            {user && user.role === 'recruiter' ? (
-                                <>
-                                    <li>
-                                        <Link 
-                                            to="/admin/companies" 
-                                            className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
-                                                isActiveLink('/admin/companies') 
-                                                    ? 'text-white font-semibold' 
-                                                    : 'text-gray-200 hover:text-white'
-                                            }`}
-                                            onClick={() => setIsMenuOpen(false)}
-                                        >
-                                            <span>Companies</span>
-                                            <ChevronRight className="h-4 w-4" />
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link 
-                                            to="/admin/jobs" 
-                                            className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
-                                                isActiveLink('/admin/jobs') 
-                                                    ? 'text-white font-semibold' 
-                                                    : 'text-gray-200 hover:text-white'
-                                            }`}
-                                            onClick={() => setIsMenuOpen(false)}
-                                        >
-                                            <span>Jobs</span>
-                                            <ChevronRight className="h-4 w-4" />
-                                        </Link>
-                                    </li>
-                                </>
-                            ) : (
-                                <>
-                                    <li>
-                                        <Link 
-                                            to="/" 
-                                            className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
-                                                isActiveLink('/') 
-                                                    ? 'text-white font-semibold' 
-                                                    : 'text-gray-200 hover:text-white'
-                                            }`}
-                                            onClick={() => setIsMenuOpen(false)}
-                                        >
-                                            <span>Home</span>
-                                            <ChevronRight className="h-4 w-4" />
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link 
-                                            to="/jobs" 
-                                            className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
-                                                isActiveLink('/jobs') 
-                                                    ? 'text-white font-semibold' 
-                                                    : 'text-gray-200 hover:text-white'
-                                            }`}
-                                            onClick={() => setIsMenuOpen(false)}
-                                        >
-                                            <span>Jobs</span>
-                                            <ChevronRight className="h-4 w-4" />
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link 
-                                            to="/browse" 
-                                            className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
-                                                isActiveLink('/browse') 
-                                                    ? 'text-white font-semibold' 
-                                                    : 'text-gray-200 hover:text-white'
-                                            }`}
-                                            onClick={() => setIsMenuOpen(false)}
-                                        >
-                                            <span>Browse</span>
-                                            <ChevronRight className="h-4 w-4" />
-                                        </Link>
-                                    </li>
-                                </>
-                            )}
-                        </ul>
-                    </div>
 
-                    {/* Mobile Menu Footer */}
-                    <div className="p-4 border-t bg-white">
-                    {!user ? (
-                            <div className='flex flex-col gap-3'>
-                                <Link to="/login">
-                                    <Button variant="outline" className="w-full bg-transparent border-white text-white hover:bg-white/10 hover:text-white">
-                                        Login
-                                    </Button>
-                                </Link>
-                                <Link to="/signup">
-                                    <Button className="w-full bg-white text-indigo-600 hover:bg-indigo-50">
-                                        Signup
-                                    </Button>
-                                </Link>
-                        </div>
-                    ) : (
-                            <div className='space-y-2 '>
-                                {user?.role === 'student' && (
-                                    <Link to="/profile">
-                                        <Button 
-                                            variant="outline" 
-                                            className="w-full justify-start gap-3 bg-blue-600 border-white text-white hover:bg-white/10 hover:text-white group relative overflow-hidden"
-                                        >
-                                            <div className="absolute inset-0 bg-gradient-to-r from-white/0 to-white/0 group-hover:from-white/10 group-hover:to-white/10 transition-all duration-300"></div>
-                                            <User2 className="h-5 w-5 transition-transform group-hover:scale-110 relative z-10" />
-                                            <span className="relative z-10 font-medium">View Profile</span>
-                                            <ChevronRight className="h-4 w-4 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1 relative z-10" />
-                                        </Button>
-                                    </Link>
-                                )}
-                                <Button 
-                                    onClick={logoutHandler} 
-                                    variant="outline" 
-                                    className="w-full justify-start gap-3 bg-transparent border-white text-white hover:bg-white/10 hover:text-white group relative overflow-hidden"
+                        <ul className='w-full space-y-4'>
+                            <li>
+                                <Link 
+                                    to="/" 
+                                    className={`flex items-center justify-center py-4 w-full transition-all duration-200 text-xl ${
+                                        isActiveLink('/') 
+                                            ? 'bg-white/10 text-white font-semibold' 
+                                            : 'text-white/80 hover:text-white hover:bg-white/5'
+                                    }`}
+                                    onClick={() => setIsMenuOpen(false)}
                                 >
-                                    <div className="absolute inset-0 bg-blue-600 from-white/0 to-white/0 group-hover:from-white/10 group-hover:to-white/10 transition-all duration-300"></div>
-                                    <LogOut className="h-5 w-5 transition-transform group-hover:scale-110 relative z-10" />
-                                    <span className="relative z-10 font-medium">Logout</span>
-                                    <ChevronRight className="h-4 w-4 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1 relative z-10" />
-                                </Button>
-                        </div>
-                    )}
+                                    Home
+                                </Link>
+                            </li>
+                            <li>
+                                <Link 
+                                    to="/jobs" 
+                                    className={`flex items-center justify-center py-4 w-full transition-all duration-200 text-xl ${
+                                        isActiveLink('/jobs') 
+                                            ? 'bg-white/10 text-white font-semibold' 
+                                            : 'text-white/80 hover:text-white hover:bg-white/5'
+                                    }`}
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    Jobs
+                                </Link>
+                            </li>
+                            <li>
+                                <Link 
+                                    to="/browse" 
+                                    className={`flex items-center justify-center py-4 w-full transition-all duration-200 text-xl ${
+                                        isActiveLink('/browse') 
+                                            ? 'bg-white/10 text-white font-semibold' 
+                                            : 'text-white/80 hover:text-white hover:bg-white/5'
+                                    }`}
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    Browse
+                                </Link>
+                            </li>
+                        </ul>
+
+                        {!user ? (
+                            <div className="mt-8 flex flex-col gap-4 w-full px-4">
+                                <Link 
+                                    to="/login" 
+                                    className="w-full text-center py-3 rounded-lg border-2 border-white text-white hover:bg-white/10 transition-colors"
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    Login
+                                </Link>
+                                <Link 
+                                    to="/signup" 
+                                    className="w-full text-center py-3 rounded-lg bg-white text-indigo-600 hover:bg-white/90 transition-colors"
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    Signup
+                                </Link>
+                            </div>
+                        ) : (
+                            <button 
+                                onClick={() => {
+                                    logoutHandler();
+                                    setIsMenuOpen(false);
+                                }}
+                                className="mt-8 flex items-center gap-2 px-6 py-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"
+                            >
+                                <LogOut className="h-5 w-5" />
+                                Logout
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
