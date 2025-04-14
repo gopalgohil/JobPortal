@@ -5,9 +5,12 @@ import { Avatar, AvatarImage } from './ui/avatar'
 import { Badge } from './ui/badge'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const Job = ({job}) => {
     const navigate = useNavigate();
+    const { user } = useSelector(store => store.auth);
     const [isHovered, setIsHovered] = useState(false);
     const [isBookmarked, setIsBookmarked] = useState(false);
 
@@ -16,6 +19,15 @@ const Job = ({job}) => {
         const currentTime = new Date();
         const timeDifference = currentTime - createdAt;
         return Math.floor(timeDifference/(1000*24*60*60));
+    }
+
+    const handleSaveForLater = () => {
+        if (!user) {
+            navigate('/login');
+        } else {
+            // Handle save for later functionality for logged-in users
+            setIsBookmarked(!isBookmarked);
+        }
     }
     
     return (
@@ -43,7 +55,7 @@ const Job = ({job}) => {
                     size="icon"
                     onClick={(e) => {
                         e.stopPropagation();
-                        setIsBookmarked(!isBookmarked);
+                        handleSaveForLater();
                     }}
                 >
                     <Bookmark className={`h-4 w-4 transition-transform duration-300 ${
@@ -93,7 +105,6 @@ const Job = ({job}) => {
                     variant="ghost"
                 >
                     <div className='flex items-center gap-1'>
-                       
                         {job?.position} Positions
                     </div>
                 </Badge>
@@ -128,9 +139,10 @@ const Job = ({job}) => {
                     View Details
                 </Button>
                 <Button 
+                    onClick={handleSaveForLater}
                     className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white transition-colors duration-300"
                 >
-                    Save For Later
+                    <Link to ='/Login'>Save For Letter</Link>
                 </Button>
             </div>
         </motion.div>
